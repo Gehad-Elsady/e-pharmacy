@@ -1,4 +1,5 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_pharmacy/Backend/firebase_functions.dart';
 import 'package:e_pharmacy/Screens/pharmacy%20orders/model/pharmacy_order_maodel.dart';
 import 'package:e_pharmacy/Screens/pharmacy%20orders/order_location.dart';
@@ -130,11 +131,24 @@ class PharmacyOrdersScreen extends StatelessWidget {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(8),
-                                    child: Image.network(
-                                      item.serviceModel.image,
+                                    child: CachedNetworkImage(
+                                      imageUrl: item.serviceModel.image,
                                       height: 60,
                                       width: 60,
                                       fit: BoxFit.cover,
+                                      placeholder: (context, url) => SizedBox(
+                                        height: 60,
+                                        width: 60,
+                                        child: Center(
+                                            child: CircularProgressIndicator()),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          SizedBox(
+                                        height: 60,
+                                        width: 60,
+                                        child: Icon(Icons.error,
+                                            color: Colors.red),
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(width: 10),

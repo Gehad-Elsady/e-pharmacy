@@ -1,14 +1,11 @@
 import 'package:e_pharmacy/Backend/firebase_functions.dart';
 import 'package:e_pharmacy/Screens/Auth/login-screen.dart';
-import 'package:e_pharmacy/Screens/add-services/addservicescreen.dart';
 import 'package:e_pharmacy/Screens/cart/cart-screen.dart';
 import 'package:e_pharmacy/Screens/contact/contact-screen.dart';
 import 'package:e_pharmacy/Screens/history/historyscreen.dart';
-import 'package:e_pharmacy/Screens/history/model/historymaodel.dart';
 import 'package:e_pharmacy/Screens/home/home-screen.dart';
 import 'package:e_pharmacy/Screens/profile/user-profile-screen.dart';
 import 'package:e_pharmacy/drawer/social-media-icons.dart';
-import 'package:e_pharmacy/location/location.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,14 +25,14 @@ class MyDrawer extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.hasData && snapshot.data != null) {
                   return DrawerHeader(
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF2e6f95),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF2e6f95), // Fallback color
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CircleAvatar(
-                          radius: 40,
+                          radius: 50,
                           backgroundImage: NetworkImage(
                             snapshot.data!.profileImage,
                           ),
@@ -93,24 +90,24 @@ class MyDrawer extends StatelessWidget {
                         context, HomeScreen.routeName);
                   },
                 ),
-                ListTile(
-                  title: Text(
-                    'Services',
-                    style: GoogleFonts.domine(
-                      fontSize: 20,
-                      color: Colors.black,
-                    ),
-                  ),
-                  leading: const Icon(
-                    Icons.miscellaneous_services_outlined,
-                    color: Color(0xFF723c70),
-                  ),
-                  onTap: () {
-                    Navigator.pop(context);
+                // ListTile(
+                //   title: Text(
+                //     'Services',
+                //     style: GoogleFonts.domine(
+                //       fontSize: 20,
+                //       color: Colors.black,
+                //     ),
+                //   ),
+                //   leading: const Icon(
+                //     Icons.miscellaneous_services_outlined,
+                //     color: Color(0xFF723c70),
+                //   ),
+                //   onTap: () {
+                //     Navigator.pop(context);
 
-                    Navigator.pushNamed(context, AddServicePage.routeName);
-                  },
-                ),
+                //     Navigator.pushNamed(context, AddServicePage.routeName);
+                //   },
+                // ),
                 ListTile(
                   title: Text(
                     'Cart',
@@ -127,43 +124,6 @@ class MyDrawer extends StatelessWidget {
                     Navigator.pop(context);
 
                     Navigator.pushNamed(context, CartScreen.routeName);
-                  },
-                ),
-                ListTile(
-                  title: Text(
-                    'Contact',
-                    style: GoogleFonts.domine(
-                      fontSize: 20,
-                      color: Colors.black,
-                    ),
-                  ),
-                  leading: const Icon(
-                    Icons.contact_page,
-                    color: Color(0xFF723c70),
-                  ),
-                  onTap: () {
-                    Navigator.pop(context);
-
-                    Navigator.pushNamed(context, ContactScreen.routeName);
-                  },
-                ),
-                const Divider(),
-                ListTile(
-                  leading: const Icon(
-                    Icons.account_circle,
-                    color: Color(0xFF723c70),
-                  ),
-                  title: Text(
-                    'Profile',
-                    style: GoogleFonts.domine(
-                      fontSize: 20,
-                      color: Colors.black,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.pushReplacementNamed(
-                        context, UserProfile.routeName);
                   },
                 ),
                 ListTile(
@@ -186,24 +146,63 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: const Icon(
-                    Icons.settings,
+                    Icons.account_circle,
                     color: Color(0xFF723c70),
                   ),
                   title: Text(
-                    'Settings',
+                    'Profile',
                     style: GoogleFonts.domine(
                       fontSize: 20,
                       color: Colors.black,
                     ),
                   ),
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => Gps(
-                                  historymaodel: HistoryModel(),
-                                  totalPrice: 500,
-                                )));
+                    Navigator.pop(context);
+                    Navigator.pushReplacementNamed(
+                        context, UserProfile.routeName);
+                  },
+                ),
+
+                const Divider(),
+
+                // ListTile(
+                //   leading: const Icon(
+                //     Icons.settings,
+                //     color: Color(0xFF723c70),
+                //   ),
+                //   title: Text(
+                //     'Settings',
+                //     style: GoogleFonts.domine(
+                //       fontSize: 20,
+                //       color: Colors.black,
+                //     ),
+                //   ),
+                //   onTap: () {
+                //     Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //             builder: (_) => Gps(
+                //                   historymaodel: HistoryModel(),
+                //                   totalPrice: 500,
+                //                 )));
+                //   },
+                // ),
+                ListTile(
+                  title: Text(
+                    'Contact Us',
+                    style: GoogleFonts.domine(
+                      fontSize: 20,
+                      color: Colors.black,
+                    ),
+                  ),
+                  leading: const Icon(
+                    Icons.contact_page,
+                    color: Color(0xFF723c70),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+
+                    Navigator.pushNamed(context, ContactScreen.routeName);
                   },
                 ),
                 ListTile(
